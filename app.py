@@ -352,11 +352,10 @@ def page_chimeric():
     with col1:
         st.markdown('<p class="plot-col-title">Good Data ✅</p>', unsafe_allow_html=True)
         fig = go.Figure()
-        for mz, inten, lab in zip(good_mz, good_int, labels):
-            color = "#0284c7" if lab else "#94a3b8"
-            fig.add_trace(go.Bar(x=[mz], y=[inten], width=1.5, marker_color=color,
-                                 text=lab, textposition="outside", textfont=dict(size=8),
-                                 showlegend=False, hoverinfo="x+y"))
+        bar_colors = ["#0284c7" if lab else "#94a3b8" for lab in labels]
+        fig.add_trace(go.Bar(x=good_mz, y=good_int, width=1.5, marker_color=bar_colors,
+                             text=labels, textposition="outside", textfont=dict(size=8),
+                             showlegend=False, hoverinfo="x+y"))
         styled_fig(fig, title="Clean MS2 — single peptide",
                    xaxis_title="m/z", yaxis_title="Intensity", height=420)
         st.plotly_chart(fig, use_container_width=True)
